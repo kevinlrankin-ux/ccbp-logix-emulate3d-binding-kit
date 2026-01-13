@@ -1,0 +1,25 @@
+Area,ModelObject,ModelProperty,Direction,PLC_Tag,Type,Scaling,Notes
+C,MTR_103,RunCmd,PLC->Model,DO_MTR_103_RUN,BOOL,,Motor run command
+C,MTR_103,RunFb,Model->PLC,DI_MTR_103_RUN_FB,BOOL,,Motor running feedback
+C,MTR_103,OverloadOK,Model->PLC,DI_MTR_103_OL_OK,BOOL,,Overload healthy (1=OK)
+
+C,VFD_203,RunCmd,PLC->Model,DO_VFD_203_RUN,BOOL,,VFD run command
+C,VFD_203,SpeedRefHz,PLC->Model,AO_VFD_203_SPEED_REF_HZ,REAL,10..60,Speed reference
+C,VFD_203,RunFb,Model->PLC,DI_VFD_203_RUN_FB,BOOL,,VFD running feedback
+C,VFD_203,Ready,Model->PLC,DI_VFD_203_READY,BOOL,,VFD ready
+C,VFD_203,Fault,Model->PLC,DI_VFD_203_FAULT,BOOL,,VFD fault active
+
+C,VLV_303,OpenCmd,PLC->Model,DO_VLV_303_OPEN,BOOL,,Valve open command
+C,VLV_303,CloseCmd,PLC->Model,DO_VLV_303_CLOSE,BOOL,,Valve close command
+C,VLV_303,OpenFb,Model->PLC,DI_VLV_303_OPEN_FB,BOOL,,Valve open feedback
+C,VLV_303,CloseFb,Model->PLC,DI_VLV_303_CLOSE_FB,BOOL,,Valve close feedback
+
+C,AI_403,LevelRaw,Model->PLC,AI_TANK_403_LEVEL_RAW,REAL,0..100,Tank level raw/engineering
+C,AI_403,LevelEU,PLC->Model,AI_403.Val.PV_EU,REAL,,Optional PLC-scaled PV visibility
+
+C,PID_503,PV,Model->PLC,PID_503.Val.PV,REAL,,Process variable
+C,PID_503,SP,Model<->PLC,PID_503.Val.SP,REAL,,Setpoint
+C,PID_503,CV,PLC->Model,PID_503.Val.CV,REAL,0..100,Controller output
+C,PID_503,ModeAutoReq,Model<->PLC,PID_503.Cmd.AutoReq,BOOL,,Scenario control
+C,PID_503,ModeManReq,Model<->PLC,PID_503.Cmd.ManReq,BOOL,,Scenario control
+C,PID_503,ManCV,Model<->PLC,PID_503.Val.CV_Man,REAL,0..100,Manual CV
