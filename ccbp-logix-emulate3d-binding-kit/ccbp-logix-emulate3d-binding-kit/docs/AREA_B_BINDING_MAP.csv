@@ -1,0 +1,11 @@
+Area,ModelObject,ModelProperty,Direction,PLC_Tag,Type,Scaling,Notes
+B,MTR_102,RunCmd,PLC->Model,DO_MTR_102_RUN,BOOL,,Motor run command
+B,MTR_102,RunFb,Model->PLC,DI_MTR_102_RUN_FB,BOOL,,Motor running feedback
+B,VFD_202,RunCmd,PLC->Model,DO_VFD_202_RUN,BOOL,,VFD run command
+B,VFD_202,SpeedRefHz,PLC->Model,AO_VFD_202_SPEED_REF_HZ,REAL,10..60,Speed reference
+B,VFD_202,RunFb,Model->PLC,DI_VFD_202_RUN_FB,BOOL,,VFD running
+B,VLV_302,OpenCmd,PLC->Model,DO_VLV_302_OPEN,BOOL,,Valve open
+B,VLV_302,CloseCmd,PLC->Model,DO_VLV_302_CLOSE,BOOL,,Valve close
+B,VLV_302,OpenFb,Model->PLC,DI_VLV_302_OPEN_FB,BOOL,,Open feedback
+B,AI_402,LevelRaw,Model->PLC,AI_TANK_402_LEVEL_RAW,REAL,0..100,Tank level
+B,PID_502,CV,PLC->Model,PID_502.Val.CV,REAL,0..100,Controller output
