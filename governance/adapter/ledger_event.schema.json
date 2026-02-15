@@ -1,0 +1,23 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GovernanceLedgerEvent",
+  "type": "object",
+  "required": ["ts_utc","scope","event_type","cr_path","structure_hash_sha256","entry_hash_sha256"],
+  "properties": {
+    "ts_utc": { "type": "string" },
+    "scope":  { "type": "string", "enum": ["SIM","REAL"] },
+    "event_type": { "type": "string", "enum": ["LABEL","STAMP","PROMOTE","SIM_BIND","TRANSITION_AUDIT","CUSTOM"] },
+    "repo_root": { "type": "string" },
+    "cr_path": { "type": "string" },
+    "structure_hash_sha256": { "type": "string" },
+    "label_path": { "type": "string" },
+    "stamp_path": { "type": "string" },
+    "approver": { "type": "string" },
+    "notes": { "type": "string" },
+
+    "prev_entry_hash_sha256": { "type": ["string","null"] },
+    "entry_hash_sha256": { "type": "string" },
+
+    "mode": { "type": "string", "enum": ["LIGHT","ENTERPRISE"] }
+  }
+}

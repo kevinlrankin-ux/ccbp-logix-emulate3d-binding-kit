@@ -11,3 +11,14 @@ plc/bindings/**/SIM_run_permit_*.yaml
 # Hash ledger is append-only; decide whether you want it tracked.
 # If you want ledger tracked, delete the next line.
 ledger/hash_registry.jsonl
+
+# --- Governance runtime artifacts (do not commit) ---
+ledger/hash_registry.jsonl
+changes/**/sim_stamp.yaml
+changes/**/stamp.yaml
+changes/**/label_oh-01.json
+changes/**/SIM_validation_summary.md
+changes/**/transition_audit_report.md
+plc/bindings/**/SIM_binding_manifest.json
+plc/bindings/**/SIM_run_permit_*.yaml
+

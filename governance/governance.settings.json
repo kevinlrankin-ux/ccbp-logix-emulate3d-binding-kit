@@ -1,0 +1,15 @@
+﻿{
+    "governance_mode":  "LIGHT",
+    "ledger":  {
+                   "anchor_every_n_events":  25,
+                   "enable_csv_mirror":  true,
+                   "jsonl_path":  "ledger\\hash_registry.jsonl",
+                   "sqlite":  {
+                                  "enable":  false,
+                                  "db_path":  "ledger\\ledger.sqlite"
+                              },
+                   "enable_anchor":  false,
+                   "enable_hash_chain":  true,
+                   "csv_path":  "ledger\\hash_registry.csv"
+               }
+}
