@@ -37,7 +37,7 @@ $Yaml += "  stamped_utc: ""$((Get-Date).ToUniversalTime().ToString("o"))"""
 ") + "
 " | Set-Content -Path $StampPath -Encoding UTF8
 
-Write-Host "STAMPED: $StampPath" -ForegroundColor Green
+Write-Host "SIM-STAMPED: $StampPath" -ForegroundColor Green
 
 # ----------------------------
 # AUTO LEDGER APPEND (JSONL)
