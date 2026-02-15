@@ -1,0 +1,179 @@
+DRAFT LADDER CANDIDATE — CR-0001
+Spec: spec/conveyor_line_5zone.yaml
+Tests: tests/fat_sat_tests.yaml
+Status: DRAFT ONLY — NON-EXECUTABLE
+
+=====================================================================
+1) TAGS USED
+=====================================================================
+
+Inputs:
+- xEStopOK
+- xLinePermExternal
+- xStartLine
+- xStopLine
+
+Zone Feedback:
+- S01_xJamOK
+- S02_xJamOK
+- S03_xJamOK
+- S04_xJamOK
+- S05_xJamOK
+
+Outputs:
+- S01_xCmdRun
+- S02_xCmdRun
+- S03_xCmdRun
+- S04_xCmdRun
+- S05_xCmdRun
+
+Derived Internal Bits:
+- xLinePermissiveOK
+- xStartReq
+- xStopReq
+
+- xAllow_S05
+- xAllow_S04
+- xAllow_S03
+- xAllow_S02
+- xAllow_S01
+
+=====================================================================
+2) GLOBAL PERMISSIVE LOGIC
+=====================================================================
+
+RUNG G1:
+xLinePermissiveOK := xEStopOK AND xLinePermExternal
+
+RUNG G2:
+xStartReq := xStartLine AND xLinePermissiveOK
+
+RUNG G3:
+xStopReq := xStopLine OR (NOT xLinePermissiveOK)
+
+=====================================================================
+3) JAM UPSTREAM-ONLY LOGIC
+(FAT/SAT: Jam_S03_StopsS03AndUpstreamOnly)
+=====================================================================
+
+RUNG J1:
+xAllow_S05 := TRUE
+
+RUNG J2:
+xAllow_S04 := S05_xJamOK
+
+RUNG J3:
+xAllow_S03 := S05_xJamOK AND S04_xJamOK
+
+RUNG J4:
+xAllow_S02 := S05_xJamOK AND S04_xJamOK AND S03_xJamOK
+
+RUNG J5:
+xAllow_S01 := S05_xJamOK AND S04_xJamOK AND S03_xJamOK AND S02_xJamOK
+
+This produces:
+
+If S03_xJamOK == FALSE:
+- xAllow_S03 = FALSE
+- xAllow_S02 = FALSE
+- xAllow_S01 = FALSE
+- xAllow_S04 remains TRUE
+- xAllow_S05 remains TRUE
+
+Matches FAT/SAT requirement.
+
+=====================================================================
+4) START ORDER LOGIC (Downstream-First)
+(FAT/SAT: Line_DownstreamFirstStart_Order)
+=====================================================================
+
+RUNG S1:
+S05_xCmdRun :=
+    xLinePermissiveOK
+    AND xStartReq
+    AND xAllow_S05
+
+RUNG S2:
+S04_xCmdRun :=
+    xLinePermissiveOK
+    AND xStartReq
+    AND xAllow_S04
+
+RUNG S3:
+S03_xCmdRun :=
+    xLinePermissiveOK
+    AND xStartReq
+    AND xAllow_S03
+
+RUNG S4:
+S02_xCmdRun :=
+    xLinePermissiveOK
+    AND xStartReq
+    AND xAllow_S02
+
+RUNG S5:
+S01_xCmdRun :=
+    xLinePermissiveOK
+    AND xStartReq
+    AND xAllow_S01
+
+NOTE:
+Ordering intent is downstream-first by structural gating.
+Timer-based staggering (500ms start delay) can be layered later.
+
+=====================================================================
+5) STOP DOMINANCE
+(FAT/SAT: Line_EStopDominance_AllOutputsOff
+          LinePermissiveLoss_StopsAll)
+=====================================================================
+
+RUNG STOP1:
+If NOT xLinePermissiveOK:
+    S01_xCmdRun = FALSE
+    S02_xCmdRun = FALSE
+    S03_xCmdRun = FALSE
+    S04_xCmdRun = FALSE
+    S05_xCmdRun = FALSE
+
+RUNG STOP2:
+If xStopReq:
+    S01_xCmdRun = FALSE
+    S02_xCmdRun = FALSE
+    S03_xCmdRun = FALSE
+    S04_xCmdRun = FALSE
+    S05_xCmdRun = FALSE
+
+Dominance hierarchy:
+1) E-Stop
+2) Line permissive
+3) Operator stop
+4) Sequencing/jam logic
+
+=====================================================================
+6) TEST TRACEABILITY MATRIX
+=====================================================================
+
+Line_EStopDominance_AllOutputsOff
+→ Covered by RUNG G1 + STOP1
+
+Line_DownstreamFirstStart_Order
+→ Covered by RUNG S1–S5 downstream-first structure
+
+Jam_S03_StopsS03AndUpstreamOnly
+→ Covered by RUNG J1–J5
+
+LinePermissiveLoss_StopsAll
+→ Covered by RUNG G1 + STOP1
+
+=====================================================================
+7) CCBP COMPLIANCE NOTES
+=====================================================================
+
+- No safety tag modification.
+- No forced outputs.
+- No silent escalation.
+- Draft artifact only.
+- No PLC execution.
+- Authority remains human.
+
+END OF DRAFT

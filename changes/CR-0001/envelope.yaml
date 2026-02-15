@@ -1,0 +1,98 @@
+envelope:
+  artifact_id: "ENVELOPE-CR-0001"
+  version: "v0.1"
+  timestamp_utc: "2026-02-13T22:45:00Z"
+  origin: "ccbp-rockwell-conveyor-line"
+  owner_human: "Kevin Rankin"
+  custodian_system: "CLP+CCBP+ASP"
+
+scope:
+  definition: |
+    ENVELOPE ONLY. Non-executable. Human-interpreted.
+    No PLC, HMI, or external system action is authorized.
+
+ccbp_assertions:
+  non_claims:
+    - "No awareness, intent, agency, or moral standing is asserted."
+    - "Outputs are proposals only."
+    - "Authority remains human."
+
+authority_boundary_statement:
+  system_may:
+    - draft
+    - recommend
+    - generate_candidate_logic
+    - propose_tests
+  system_may_not:
+    - deploy
+    - commit
+    - bypass_safety_interlocks
+    - modify_safety_tags
+    - force_outputs
+    - message_externally
+    - execute_real_world_changes
+
+behavioral_binding_notes:
+  # Bound to tests/fat_sat_tests.yaml
+  estop_dominance: "If xEStopOK == FALSE -> ALL S01..S05 xCmdRun == FALSE"
+  permissive_loss: "If xLinePermExternal == FALSE -> ALL S01..S05 xCmdRun == FALSE"
+  jam_policy: "Jam at zone k stops zone k + upstream only; downstream continues if permissives OK"
+  start_order: ["S05_DISCHARGE", "S04_ZONE4", "S03_ZONE3", "S02_ZONE2", "S01_INFEED"]
+
+content_pointers:
+  narrative_input: "changes/CR-0001/change_request.md"
+  spec_targets:
+    - "spec/conveyor_line_5zone.yaml"
+  test_targets:
+    - "tests/fat_sat_tests.yaml"
+  draft_outputs:
+    - "changes/CR-0001/draft_ladder_candidate.txt"
+  plc_targets: []
+  hmi_targets: []
+  evidence_pack:
+    - "changes/CR-0001/evidence/"
+  source_refs:
+    - "README.md"
+    - "docs/CLP_LOGIX_MAPPING_CR-0001.md"
+    - "docs/TAG_BINDING_NORMALIZATION.md"
+    - "docs/CCBP_BEHAVIOR_CONTRACT_CR-0001.md"
+    - "changes/CR-0001/archon_questions.md"
+
+risk_flags:
+  safety_security: false
+  legal_compliance: false
+  financial_spend: false
+  reputational: false
+  privacy_data: false
+  autonomy_escalation: false
+  unverifiable_claims: false
+  missing_provenance: false
+  misleading_presentation: false
+
+execution_gate:
+  human_reviewer: "Kevin Rankin"
+  date: "2026-02-13"
+  approval_type: "REVIEW_ONLY"
+  reversibility_plan_confirmed: "NO"
+  kill_switch_verified: "NO"
+  audit_logging_enabled: "YES"
+  external_impact: "NO"
+
+reversibility_plan:
+  summary: |
+    Revert spec and generated ladder artifacts.
+    Re-run FAT/SAT tests in Emulate3D to confirm safe state.
+  rollback_steps:
+    - "Restore previous version of spec/conveyor_line_5zone.yaml"
+    - "Re-run tests/fat_sat_tests.yaml"
+    - "Confirm safe outputs in simulation"
+
+kill_switch:
+  mechanism: "Disable AI-to-ladder generation path"
+  verification_notes: "Pending verification"
+
+signatures:
+  human_reviewer_signature: ""
+  witness_cosign_optional: ""
+  signature_timestamp_utc: ""
+

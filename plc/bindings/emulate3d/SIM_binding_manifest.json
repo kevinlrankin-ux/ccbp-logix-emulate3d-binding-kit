@@ -1,0 +1,37 @@
+﻿{
+    "approved_artifact":  "plc\\approved\\SIM-CR-0001_Approved.txt",
+    "sealed_structure_hash_sha256":  "e087e397ee1ce88b9a20bc82f6dc46506e62e677ae6d844d88756535ae92f739",
+    "placeholder_bindings":  {
+                                 "plc":  [
+                                             {
+                                                 "tag":  "S01_xCmdRun",
+                                                 "comment":  "SIM placeholder bind: zone 1 motor"
+                                             },
+                                             {
+                                                 "tag":  "S02_xCmdRun",
+                                                 "comment":  "SIM placeholder bind: zone 2 motor"
+                                             },
+                                             {
+                                                 "tag":  "S03_xCmdRun",
+                                                 "comment":  "SIM placeholder bind: zone 3 motor"
+                                             },
+                                             {
+                                                 "tag":  "S04_xCmdRun",
+                                                 "comment":  "SIM placeholder bind: zone 4 motor"
+                                             },
+                                             {
+                                                 "tag":  "S05_xCmdRun",
+                                                 "comment":  "SIM placeholder bind: zone 5 motor"
+                                             }
+                                         ]
+                             },
+    "version":  "v0.1",
+    "created_utc":  "2026-02-14T20:59:39.7222901Z",
+    "scope":  "SIMULATION_ONLY",
+    "cr_path":  "changes/CR-0001",
+    "binder":  "Emulate3D",
+    "guardrail":  {
+                      "required_external_impact":  "NO",
+                      "verified":  true
+                  }
+}

@@ -1,0 +1,22 @@
+﻿envelope:
+  artifact_id: "ENVELOPE-CR-0002-REALIZATION"
+  version: "v0.1"
+  origin: "ccbp-logix-emulate3d-binding-kit"
+  owner_human: "Kevin Rankin"
+
+scope:
+  definition: |
+    TRANSITION ENVELOPE.
+    Converts SIM validated artifact into REAL deployment request.
+
+execution_gate:
+  external_impact: "YES"
+  required_previous_sim_hash: "e087e397ee1ce88b9a20bc82f6dc46506e62e677ae6d844d88756535ae92f739"
+  sim_validation_required: true
+
+ccbp_assertions:
+  triad_required: true
+  authority_remains_human: true
+
+notes:
+  sim_tools_must_refuse: true
